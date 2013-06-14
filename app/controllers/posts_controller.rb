@@ -2,12 +2,16 @@ class PostsController < ApplicationController
   def random
     action = rand(100)
     if action < 40
+      puts "method=show"
       redirect_to show_random_posts_url
     elsif action < 80
+      puts "method=list"
       redirect_to posts_url
     elsif action < 98 
+      puts "method=post"
       redirect_to new_random_posts_url
     elsif action < 100
+      puts "method=destroy"
       redirect_to destroy_random_posts_url
     end
   end
