@@ -1,6 +1,13 @@
 Speedtest::Application.routes.draw do
-  resources :posts
+  resources :posts do
+    collection do
+      get 'new_random'
+      get 'show_random'
+      get 'destroy_random'
+    end
+  end
 
+  root :to => 'posts#random'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

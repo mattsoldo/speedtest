@@ -1,8 +1,21 @@
 class PostsController < ApplicationController
+  def random
+    action = rand(100)
+    if action < 40
+      redirect_to show_random_posts_url
+    elsif action < 80
+      redirect_to posts_url
+    elsif action < 98 
+      redirect_to new_random_posts_url
+    elsif action < 100
+      redirect_to destroy_random_posts_url
+    end
+  end
+      
   # GET /posts
   # GET /posts.json
   def index
-    @posts = Post.all
+    @posts = Post.all[0..200]
 
     respond_to do |format|
       format.html # index.html.erb
@@ -28,6 +41,39 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
+      format.json { render json: @post }
+    end
+  end
+
+  def new_random
+    @post = Post.new_random
+
+    respond_to do |format|
+      if @post.save
+        format.html { redirect_to @post, notice: 'Post was successfully created.' }
+        format.json { render json: @post, status: :created, location: @post }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def destroy_random
+    @post = Post.get_random
+    @post.destroy
+
+    respond_to do |format|
+      format.html { redirect_to posts_url }
+      format.json { head :no_content }
+    end
+  end
+  
+  def show_random
+    @post = Post.get_random
+    
+    respond_to do |format|
+      format.html { render "show" }
       format.json { render json: @post }
     end
   end
