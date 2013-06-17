@@ -3,7 +3,7 @@ class Post < ActiveRecord::Base
   
   def self.new_random
     title = (0...rand(100)).map{ ('a'..'z').to_a[rand(26)] }.join
-    body = (1...rand(10)).map{Forgery(:lorem_ipsum).words(1000)}.join
+    body = (1...rand(3)).map{Forgery(:lorem_ipsum).words(1000)}.join
     length = body.length
   
     self.new(
@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   end
   
   def self.get_random
-    self.find(:all).sample(1)[0]
+    self.first
   end
   
 end
