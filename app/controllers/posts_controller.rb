@@ -3,16 +3,26 @@ class PostsController < ApplicationController
     action = rand(100)
     if action < 40
       puts "method=show"
-      redirect_to show_random_posts_url
+      # redirect_to show_random_posts_url
+      @post = Post.get_random
+      render "show"
     elsif action < 80
       puts "method=list"
-      redirect_to posts_url
+      # redirect_to posts_url
+      @posts = Post.all[0..200]
+      render "index"
     elsif action < 98 
       puts "method=post"
-      redirect_to new_random_posts_url
+      # redirect_to new_random_posts_url
+      @post = Post.new_random
+      @post.save
+      render "show"
     elsif action < 100
       puts "method=destroy"
-      redirect_to destroy_random_posts_url
+      # redirect_to destroy_random_posts_url
+       @post = Post.get_random
+       @post.destroy
+       render :nothing => true, :status => 200
     end
   end
       
