@@ -9,7 +9,7 @@ class PostsController < ApplicationController
     elsif action < 80
       puts "method=list"
       # redirect_to posts_url
-      @posts = Post.all[0..200]
+      @posts = Post.all[0..20]
       render "index"
     elsif action < 98 
       puts "method=post"
