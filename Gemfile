@@ -8,7 +8,8 @@ gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'forgery'
-gem 'unicorn'
+# gem 'unicorn'
+gem 'thin'
 gem 'newrelic_rpm'
 
 # Gems used only for assets and not required
