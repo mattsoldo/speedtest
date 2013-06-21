@@ -1,1 +1,1 @@
-web: bin/start-nginx bundle exec unicorn -c config/unicorn.rb
+web: bin/start-nginx -f bundle exec unicorn -c config/unicorn.rb
