@@ -11,7 +11,7 @@ end
 preload_app true
 
 before_fork do |server, worker|
-  # FileUtils.touch('/tmp/app-initialized')
+  FileUtils.touch('/tmp/app-initialized')
   Signal.trap 'TERM' do
     puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
     Process.kill 'QUIT', Process.pid
