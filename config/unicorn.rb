@@ -1,3 +1,6 @@
+require 'fileutils'
+listen '/tmp/nginx.socket'
+
 worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
 if to = ENV["TIMEOUT"]
   timeout to.to_i
@@ -8,6 +11,7 @@ end
 preload_app true
 
 before_fork do |server, worker|
+  FileUtils.touch('/tmp/app-initialized')
   Signal.trap 'TERM' do
     puts 'Unicorn master intercepting TERM and sending myself QUIT instead'
     Process.kill 'QUIT', Process.pid
